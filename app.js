@@ -785,9 +785,10 @@ function getHeaderHTML(activePage) {
     return '<nav class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-xl border-b border-white/10">' +
         '<div class="max-w-7xl mx-auto px-6 py-4">' +
             '<div class="flex items-center justify-between">' +
-                '<a href="index.html" class="flex items-center gap-2">' +
-                    '<div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">' +
-                        '<span class="text-2xl">🧱</span>' +
+                '<a href="index.html" class="flex items-center gap-3">' +
+                    '<div class="relative">' +
+                        '<div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl blur-md opacity-50"></div>' +
+                        '<img src="logo.png" alt="BLOCKVERSE" class="relative w-10 h-10 object-contain">' +
                     '</div>' +
                     '<span class="text-2xl font-black font-space gradient-text">BLOCKVERSE</span>' +
                 '</a>' +
@@ -955,7 +956,7 @@ function getFooterHTML() {
                 '<div class="grid grid-cols-2 md:grid-cols-6 gap-10 mb-16">' +
                     '<div class="col-span-2">' +
                         '<div class="flex items-center gap-3 mb-6">' +
-                            '<div class="relative"><div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl blur-lg opacity-50"></div><div class="relative w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-xl"><span class="text-3xl">🧱</span></div></div>' +
+                            '<div class="relative"><div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl blur-lg opacity-50"></div><img src="logo.png" alt="BLOCKVERSE" class="relative w-14 h-14 object-contain"></div>' +
                             '<div><span class="text-2xl font-black font-space gradient-text block">BLOCKVERSE</span><span class="text-xs text-gray-500">Build. Create. Inspire.</span></div>' +
                         '</div>' +
                         '<p class="text-gray-400 text-sm mb-6 leading-relaxed">Premium designer building blocks for the modern collector. Join our global community of 50,000+ passionate builders.</p>' +
