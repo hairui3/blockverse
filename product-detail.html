@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Search Container -->
+    <div id="search-container"></div>
+    
+    <!-- Side Cart Container -->
+    <div id="sidecart-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="pt-24 pb-4">
+        <div class="max-w-7xl mx-auto px-6">
+            <nav class="flex items-center gap-2 text-sm text-gray-400">
+                <a href="index.html" class="hover:text-white transition">Home</a>
+                <span>/</span>
+                <a href="products.html" class="hover:text-white transition">Products</a>
+                <span>/</span>
+                <span id="breadcrumb-name" class="text-white">Product Name</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <section class="py-8 relative">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 blob blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div id="product-detail" class="grid lg:grid-cols-2 gap-12">
+                <!-- Product Image -->
+                <div class="space-y-4">
+                    <div id="main-image" class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl flex items-center justify-center border border-white/10 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-grid opacity-30"></div>
+                        <span id="product-emoji" class="text-[250px] relative z-10 float-animation">🧱</span>
+                    </div>
+                    <div id="thumbnail-container" class="grid grid-cols-4 gap-4">
+                        <div class="thumb-item aspect-square bg-gray-800 rounded-xl flex items-center justify-center border-2 border-purple-500 cursor-pointer transition" data-image="" data-index="0">
+                            <span id="thumb-1" class="text-4xl">🧱</span>
+                        </div>
+                        <div class="thumb-item aspect-square bg-gray-800 rounded-xl flex items-center justify-center border border-white/10 hover:border-purple-500 cursor-pointer transition" data-image="📦" data-index="1">
+                            <span class="text-4xl">📦</span>
+                        </div>
+                        <div class="thumb-item aspect-square bg-gray-800 rounded-xl flex items-center justify-center border border-white/10 hover:border-purple-500 cursor-pointer transition" data-image="📐" data-index="2">
+                            <span class="text-4xl">📐</span>
+                        </div>
+                        <div class="thumb-item aspect-square bg-gray-800 rounded-xl flex items-center justify-center border border-white/10 hover:border-purple-500 cursor-pointer transition" data-image="🎁" data-index="3">
+                            <span class="text-4xl">🎁</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <div id="product-badge" class="inline-block px-4 py-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-sm font-bold mb-4">
+                        NEW
+                    </div>
+                    <h1 id="product-name" class="text-4xl md:text-5xl font-black mb-4">Product Name</h1>
+                    
+                    <div class="flex items-center gap-4 mb-6">
+                        <div id="product-rating" class="flex items-center gap-1">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-gray-400 text-sm">(0 reviews)</span>
+                        </div>
+                        <span class="text-gray-500">|</span>
+                        <span id="product-category" class="text-purple-400 font-medium">Category</span>
+                    </div>
+
+                    <p id="product-description" class="text-gray-400 text-lg mb-8">
+                        Product description goes here...
+                    </p>
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <span id="product-price" class="text-4xl font-black text-white">$0.00</span>
+                        <span id="product-original-price" class="text-xl text-gray-500 line-through hidden">$0.00</span>
+                        <span id="product-discount" class="px-3 py-1 bg-red-500 rounded-full text-sm font-bold hidden">-0%</span>
+                    </div>
+
+                    <!-- Product Stats -->
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="bg-white/5 rounded-2xl p-4 text-center">
+                            <div id="product-pieces" class="text-2xl font-black gradient-text">0</div>
+                            <div class="text-gray-400 text-sm">Pieces</div>
+                        </div>
+                        <div class="bg-white/5 rounded-2xl p-4 text-center">
+                            <div class="text-2xl font-black gradient-text">16+</div>
+                            <div class="text-gray-400 text-sm">Age</div>
+                        </div>
+                        <div class="bg-white/5 rounded-2xl p-4 text-center">
+                            <div class="text-2xl font-black gradient-text">4-6h</div>
+                            <div class="text-gray-400 text-sm">Build Time</div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="text-gray-400">Quantity:</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="updateQty(-1)" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-white/20 transition text-xl">-</button>
+                            <span id="qty-value" class="w-12 text-center font-bold text-xl">1</span>
+                            <button onclick="updateQty(1)" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-white/20 transition text-xl">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <button id="add-to-cart-btn" onclick="addProductToCart()" class="flex-1 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-bold text-lg hover:opacity-90 transition btn-glow flex items-center justify-center gap-2">
+                            <span>Add to Cart</span>
+                            <span>🛒</span>
+                        </button>
+                        <button id="wishlist-btn" onclick="toggleProductWishlist()" class="px-6 py-4 bg-white/10 border border-white/20 rounded-2xl font-bold hover:bg-white/20 transition">
+                            <span id="wishlist-icon">🤍</span>
+                        </button>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-gray-400">
+                            <span class="text-green-400">✓</span>
+                            <span>Free shipping on orders over $75</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-400">
+                            <span class="text-green-400">✓</span>
+                            <span>30-day money-back guarantee</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-400">
+                            <span class="text-green-400">✓</span>
+                            <span>Premium ABS plastic, non-toxic materials</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-400">
+                            <span class="text-green-400">✓</span>
+                            <span>Detailed instruction manual included</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="border-b border-white/10 mb-8">
+                <div class="flex gap-8">
+                    <button onclick="switchTab('description')" id="tab-description" class="pb-4 font-bold text-white border-b-2 border-purple-500">Description</button>
+                    <button onclick="switchTab('specs')" id="tab-specs" class="pb-4 font-bold text-gray-400 hover:text-white transition">Specifications</button>
+                    <button onclick="switchTab('reviews')" id="tab-reviews" class="pb-4 font-bold text-gray-400 hover:text-white transition">Reviews</button>
+                </div>
+            </div>
+
+            <div id="tab-content-description" class="tab-content">
+                <div class="prose prose-invert max-w-none">
+                    <h3 class="text-2xl font-bold mb-4">About This Set</h3>
+                    <p id="full-description" class="text-gray-400 mb-6">
+                        Full product description will be displayed here...
+                    </p>
+                    <h4 class="text-xl font-bold mb-3">What's Included</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2"><span class="text-purple-400">•</span> All building blocks and pieces</li>
+                        <li class="flex items-center gap-2"><span class="text-purple-400">•</span> Step-by-step instruction manual</li>
+                        <li class="flex items-center gap-2"><span class="text-purple-400">•</span> Collector's packaging</li>
+                        <li class="flex items-center gap-2"><span class="text-purple-400">•</span> Display stand</li>
+                        <li class="flex items-center gap-2"><span class="text-purple-400">•</span> Extra spare pieces</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="tab-content-specs" class="tab-content hidden">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white/5 rounded-2xl p-6">
+                        <h4 class="font-bold mb-4">Product Details</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Piece Count</span>
+                                <span id="spec-pieces" class="font-medium">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Difficulty</span>
+                                <span class="font-medium">Advanced</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Age Range</span>
+                                <span class="font-medium">16+</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Build Time</span>
+                                <span class="font-medium">4-6 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-2xl p-6">
+                        <h4 class="font-bold mb-4">Dimensions</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Completed Size</span>
+                                <span class="font-medium">12" x 8" x 10"</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Box Size</span>
+                                <span class="font-medium">18" x 12" x 4"</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Weight</span>
+                                <span class="font-medium">2.5 lbs</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Material</span>
+                                <span class="font-medium">Premium ABS Plastic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-content-reviews" class="tab-content hidden">
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-4xl font-black">4.9</span>
+                                <div>
+                                    <div class="text-yellow-400">★★★★★</div>
+                                    <div class="text-gray-400 text-sm">Based on 234 reviews</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition">
+                            Write a Review
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white/5 rounded-2xl p-6">
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center font-bold">J</div>
+                                <div>
+                                    <div class="font-bold">John D.</div>
+                                    <div class="text-yellow-400 text-sm">★★★★★</div>
+                                </div>
+                                <span class="text-gray-500 text-sm ml-auto">2 days ago</span>
+                            </div>
+                            <p class="text-gray-400">Amazing quality! The pieces fit perfectly and the finished build looks incredible. Highly recommend for any collector.</p>
+                        </div>
+                        <div class="bg-white/5 rounded-2xl p-6">
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center font-bold">S</div>
+                                <div>
+                                    <div class="font-bold">Sarah M.</div>
+                                    <div class="text-yellow-400 text-sm">★★★★★</div>
+                                </div>
+                                <span class="text-gray-500 text-sm ml-auto">1 week ago</span>
+                            </div>
+                            <p class="text-gray-400">Best building block set I've ever purchased. The attention to detail is incredible. Worth every penny!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-black mb-8">You May Also <span class="gradient-text">Like</span></h2>
+            <div id="related-products" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Related products injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        let currentProduct = null;
+        let quantity = 1;
+
+        function loadProduct() {
+            const productId = getUrlParam('id');
+            currentProduct = getProductById(productId);
+            
+            if (!currentProduct) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            // Update page title
+            document.title = `${currentProduct.name} - BLOCKVERSE`;
+            
+            // Update breadcrumb
+            document.getElementById('breadcrumb-name').textContent = currentProduct.name;
+            
+            // Update product details
+            document.getElementById('product-emoji').textContent = currentProduct.image;
+            document.getElementById('thumb-1').textContent = currentProduct.image;
+            document.getElementById('product-name').textContent = currentProduct.name;
+            document.getElementById('product-description').textContent = currentProduct.description;
+            document.getElementById('full-description').textContent = currentProduct.description;
+            document.getElementById('product-price').textContent = `$${currentProduct.price}`;
+            document.getElementById('product-pieces').textContent = currentProduct.pieces.toLocaleString();
+            document.getElementById('spec-pieces').textContent = currentProduct.pieces.toLocaleString();
+            document.getElementById('product-category').textContent = currentProduct.category;
+            
+            // Badge
+            if (currentProduct.badge) {
+                document.getElementById('product-badge').textContent = currentProduct.badge;
+                document.getElementById('product-badge').classList.remove('hidden');
+            } else {
+                document.getElementById('product-badge').classList.add('hidden');
+            }
+            
+            // Original price & discount
+            if (currentProduct.originalPrice) {
+                document.getElementById('product-original-price').textContent = `$${currentProduct.originalPrice}`;
+                document.getElementById('product-original-price').classList.remove('hidden');
+                const discount = Math.round((1 - currentProduct.price / currentProduct.originalPrice) * 100);
+                document.getElementById('product-discount').textContent = `-${discount}%`;
+                document.getElementById('product-discount').classList.remove('hidden');
+            }
+            
+            // Rating
+            const stars = '★'.repeat(Math.floor(currentProduct.rating)) + '☆'.repeat(5 - Math.floor(currentProduct.rating));
+            document.getElementById('product-rating').innerHTML = `
+                <span class="text-yellow-400">${stars}</span>
+                <span class="text-gray-400 text-sm">(${currentProduct.reviews} reviews)</span>
+            `;
+            
+            // Initialize image gallery
+            initGallery();
+            
+            // Load related products
+            loadRelatedProducts();
+        }
+
+        function loadRelatedProducts() {
+            const related = products
+                .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+                .slice(0, 4);
+            
+            const grid = document.getElementById('related-products');
+            grid.innerHTML = related.map(product => createProductCard(product)).join('');
+        }
+
+        function updateQty(delta) {
+            quantity = Math.max(1, quantity + delta);
+            document.getElementById('qty-value').textContent = quantity;
+        }
+
+        function addProductToCart() {
+            if (currentProduct) {
+                // Find if product already exists in cart
+                var existingItem = null;
+                for (var i = 0; i < cart.length; i++) {
+                    if (cart[i].id === currentProduct.id) {
+                        existingItem = cart[i];
+                        break;
+                    }
+                }
+                
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        id: currentProduct.id,
+                        name: currentProduct.name,
+                        price: currentProduct.price,
+                        image: currentProduct.image,
+                        pieces: currentProduct.pieces,
+                        category: currentProduct.category,
+                        quantity: quantity
+                    });
+                }
+                saveCart();
+                showToast(currentProduct.name + ' x' + quantity + ' added to cart!');
+                
+                // Reset quantity
+                quantity = 1;
+                document.getElementById('qty-value').textContent = '1';
+            }
+        }
+        
+        // Make functions globally accessible
+        window.addProductToCart = addProductToCart;
+        window.updateQty = updateQty;
+        window.switchTab = switchTab;
+        window.loadProduct = loadProduct;
+        
+        // Image gallery functionality
+        var productImages = [];
+        var currentImageIndex = 0;
+        
+        function initGallery() {
+            // Set product images array
+            if (currentProduct) {
+                productImages = [
+                    currentProduct.image,  // Main product image
+                    '📦',  // Packaging
+                    '📐',  // Instructions
+                    '🎁'   // Gift box
+                ];
+                
+                // Update first thumbnail with product image
+                var thumb1 = document.getElementById('thumb-1');
+                if (thumb1) {
+                    thumb1.textContent = currentProduct.image;
+                }
+                
+                // Set data-image for first thumbnail
+                var firstThumb = document.querySelector('.thumb-item[data-index="0"]');
+                if (firstThumb) {
+                    firstThumb.setAttribute('data-image', currentProduct.image);
+                }
+            }
+            
+            // Add click event listeners to thumbnails
+            var thumbnails = document.querySelectorAll('.thumb-item');
+            for (var i = 0; i < thumbnails.length; i++) {
+                thumbnails[i].addEventListener('click', function() {
+                    var index = parseInt(this.getAttribute('data-index'));
+                    switchImage(index);
+                });
+            }
+        }
+        
+        function switchImage(index) {
+            currentImageIndex = index;
+            
+            // Update main image
+            var mainEmoji = document.getElementById('product-emoji');
+            if (mainEmoji && productImages[index]) {
+                mainEmoji.textContent = productImages[index];
+                
+                // Add a small animation
+                mainEmoji.style.transform = 'scale(0.8)';
+                mainEmoji.style.opacity = '0.5';
+                setTimeout(function() {
+                    mainEmoji.style.transform = 'scale(1)';
+                    mainEmoji.style.opacity = '1';
+                }, 100);
+            }
+            
+            // Update thumbnail borders
+            var thumbnails = document.querySelectorAll('.thumb-item');
+            for (var i = 0; i < thumbnails.length; i++) {
+                if (i === index) {
+                    thumbnails[i].classList.remove('border', 'border-white/10');
+                    thumbnails[i].classList.add('border-2', 'border-purple-500');
+                } else {
+                    thumbnails[i].classList.remove('border-2', 'border-purple-500');
+                    thumbnails[i].classList.add('border', 'border-white/10');
+                }
+            }
+        }
+        
+        window.switchImage = switchImage;
+        window.initGallery = initGallery;
+        
+        function toggleProductWishlist() {
+            if (currentProduct) {
+                toggleWishlist(currentProduct.id);
+                updateWishlistButton();
+            }
+        }
+        
+        function updateWishlistButton() {
+            var icon = document.getElementById('wishlist-icon');
+            var btn = document.getElementById('wishlist-btn');
+            if (currentProduct && isInWishlist(currentProduct.id)) {
+                icon.textContent = '❤️';
+                btn.classList.add('bg-red-500/20', 'border-red-500/50');
+            } else {
+                icon.textContent = '🤍';
+                btn.classList.remove('bg-red-500/20', 'border-red-500/50');
+            }
+        }
+        
+        window.toggleProductWishlist = toggleProductWishlist;
+        window.updateWishlistButton = updateWishlistButton;
+
+        function switchTab(tab) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id^="tab-"]').forEach(el => {
+                if (!el.id.startsWith('tab-content')) {
+                    el.classList.remove('text-white', 'border-b-2', 'border-purple-500');
+                    el.classList.add('text-gray-400');
+                }
+            });
+            
+            // Show selected tab
+            document.getElementById(`tab-content-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).classList.remove('text-gray-400');
+            document.getElementById(`tab-${tab}`).classList.add('text-white', 'border-b-2', 'border-purple-500');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('products');
+            loadProduct();
+            updateWishlistButton();
+        });
+    </script>
+</body>
+</html>

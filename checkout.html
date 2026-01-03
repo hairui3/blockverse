@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Simplified Checkout Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                        <span class="text-2xl">🧱</span>
+                    </div>
+                    <span class="text-2xl font-black font-space gradient-text">BLOCKVERSE</span>
+                </a>
+                <div class="flex items-center gap-2 text-sm text-gray-400">
+                    <span>🔒</span>
+                    <span>Secure Checkout</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Content -->
+    <section class="pt-28 pb-12 min-h-screen">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Progress Steps -->
+            <div class="flex items-center justify-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div id="step-info" class="checkout-step active flex items-center gap-2">
+                        <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center font-bold">1</div>
+                        <span class="hidden sm:block font-medium">Information</span>
+                    </div>
+                    <div class="w-12 h-1 bg-white/20 rounded-full"><div id="progress-1" class="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full w-0 transition-all duration-500"></div></div>
+                    <div id="step-shipping" class="checkout-step flex items-center gap-2">
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold">2</div>
+                        <span class="hidden sm:block font-medium">Shipping</span>
+                    </div>
+                    <div class="w-12 h-1 bg-white/20 rounded-full"><div id="progress-2" class="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full w-0 transition-all duration-500"></div></div>
+                    <div id="step-payment" class="checkout-step flex items-center gap-2">
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold">3</div>
+                        <span class="hidden sm:block font-medium">Payment</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-8">
+                <!-- Main Form -->
+                <div class="lg:col-span-3">
+                    <!-- Step 1: Information -->
+                    <div id="form-step-1" class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-8">
+                        <h2 class="text-2xl font-bold mb-6">Contact Information</h2>
+                        
+                        <form id="info-form" onsubmit="goToStep(2); return false;" class="space-y-5">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Email Address *</label>
+                                <input type="email" id="checkout-email" required
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                       placeholder="your@email.com">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">First Name *</label>
+                                    <input type="text" id="checkout-firstname" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                           placeholder="John">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Last Name *</label>
+                                    <input type="text" id="checkout-lastname" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                           placeholder="Doe">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Phone Number *</label>
+                                <input type="tel" id="checkout-phone" required
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                       placeholder="(555) 123-4567">
+                            </div>
+                            
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" id="checkout-newsletter" class="custom-checkbox">
+                                <span class="text-sm text-gray-400">Email me with news and offers</span>
+                            </label>
+                            
+                            <button type="submit" class="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold text-lg hover:opacity-90 transition">
+                                Continue to Shipping →
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Step 2: Shipping -->
+                    <div id="form-step-2" class="hidden bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-8">
+                        <h2 class="text-2xl font-bold mb-6">Shipping Address</h2>
+                        
+                        <form id="shipping-form" onsubmit="goToStep(3); return false;" class="space-y-5">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Street Address *</label>
+                                <input type="text" id="checkout-address" required
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                       placeholder="123 Main Street">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Apartment, suite, etc. (optional)</label>
+                                <input type="text" id="checkout-address2"
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                       placeholder="Apt 4B">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">City *</label>
+                                    <input type="text" id="checkout-city" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                           placeholder="Los Angeles">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">State *</label>
+                                    <div class="relative group">
+                                        <select id="checkout-state" required
+                                                class="w-full px-4 py-3 bg-gradient-to-r from-white/5 to-white/10 border border-white/20 rounded-xl text-white font-medium hover:border-purple-500/50 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300">
+                                            <option value="">🌎 Select State</option>
+                                            <option value="CA">🌴 California</option>
+                                            <option value="NY">🗽 New York</option>
+                                            <option value="TX">🤠 Texas</option>
+                                            <option value="FL">🌊 Florida</option>
+                                            <option value="WA">🌲 Washington</option>
+                                            <option value="OR">🦆 Oregon</option>
+                                            <option value="NV">🎰 Nevada</option>
+                                            <option value="AZ">🌵 Arizona</option>
+                                        </select>
+                                        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 pointer-events-none transition-all duration-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">ZIP Code *</label>
+                                <input type="text" id="checkout-zip" required
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                       placeholder="90001">
+                            </div>
+                            
+                            <div class="pt-4 border-t border-white/10">
+                                <label class="block text-sm text-gray-400 mb-3">Shipping Method</label>
+                                <div class="space-y-3">
+                                    <label class="flex items-center gap-4 p-4 bg-white/5 border border-white/20 rounded-xl cursor-pointer hover:bg-white/10 transition">
+                                        <input type="radio" name="shipping-method" value="standard" checked class="custom-checkbox">
+                                        <div class="flex-1">
+                                            <div class="font-bold">Standard Shipping</div>
+                                            <div class="text-sm text-gray-400">5-7 business days</div>
+                                        </div>
+                                        <span class="font-bold text-green-400">FREE</span>
+                                    </label>
+                                    <label class="flex items-center gap-4 p-4 bg-white/5 border border-white/20 rounded-xl cursor-pointer hover:bg-white/10 transition">
+                                        <input type="radio" name="shipping-method" value="express" class="custom-checkbox">
+                                        <div class="flex-1">
+                                            <div class="font-bold">Express Shipping</div>
+                                            <div class="text-sm text-gray-400">2-3 business days</div>
+                                        </div>
+                                        <span class="font-bold">$14.99</span>
+                                    </label>
+                                    <label class="flex items-center gap-4 p-4 bg-white/5 border border-white/20 rounded-xl cursor-pointer hover:bg-white/10 transition">
+                                        <input type="radio" name="shipping-method" value="overnight" class="custom-checkbox">
+                                        <div class="flex-1">
+                                            <div class="font-bold">Overnight Shipping</div>
+                                            <div class="text-sm text-gray-400">Next business day</div>
+                                        </div>
+                                        <span class="font-bold">$29.99</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4">
+                                <button type="button" onclick="goToStep(1)" class="flex-1 py-4 bg-white/10 border border-white/20 rounded-xl font-bold hover:bg-white/20 transition">
+                                    ← Back
+                                </button>
+                                <button type="submit" class="flex-1 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold text-lg hover:opacity-90 transition">
+                                    Continue to Payment →
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 3: Payment -->
+                    <div id="form-step-3" class="hidden bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-8">
+                        <h2 class="text-2xl font-bold mb-6">Payment Method</h2>
+                        
+                        <form id="payment-form" onsubmit="processPayment(event)" class="space-y-5">
+                            <!-- Payment Method Tabs -->
+                            <div class="flex gap-2 mb-6">
+                                <button type="button" onclick="selectPaymentMethod('card')" id="pm-card" class="flex-1 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold transition">
+                                    💳 Card
+                                </button>
+                                <button type="button" onclick="selectPaymentMethod('paypal')" id="pm-paypal" class="flex-1 py-3 bg-white/10 border border-white/20 rounded-xl font-bold hover:bg-white/20 transition">
+                                    🅿️ PayPal
+                                </button>
+                                <button type="button" onclick="selectPaymentMethod('apple')" id="pm-apple" class="flex-1 py-3 bg-white/10 border border-white/20 rounded-xl font-bold hover:bg-white/20 transition">
+                                    🍎 Apple Pay
+                                </button>
+                            </div>
+                            
+                            <!-- Card Payment -->
+                            <div id="payment-card" class="space-y-5">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Card Number *</label>
+                                    <div class="relative">
+                                        <input type="text" id="card-number" required maxlength="19"
+                                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                               placeholder="1234 5678 9012 3456"
+                                               oninput="formatCardNumber(this)">
+                                        <div class="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1">
+                                            <span class="text-xl">💳</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Cardholder Name *</label>
+                                    <input type="text" id="card-name" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                           placeholder="JOHN DOE">
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-400 mb-2">Expiry Date *</label>
+                                        <input type="text" id="card-expiry" required maxlength="5"
+                                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                               placeholder="MM/YY"
+                                               oninput="formatExpiry(this)">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-400 mb-2">CVV *</label>
+                                        <input type="text" id="card-cvv" required maxlength="4"
+                                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500"
+                                               placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- PayPal Payment -->
+                            <div id="payment-paypal" class="hidden text-center py-8">
+                                <div class="text-6xl mb-4">🅿️</div>
+                                <p class="text-gray-400 mb-4">You will be redirected to PayPal to complete your purchase.</p>
+                            </div>
+                            
+                            <!-- Apple Pay -->
+                            <div id="payment-apple" class="hidden text-center py-8">
+                                <div class="text-6xl mb-4">🍎</div>
+                                <p class="text-gray-400 mb-4">Click below to pay with Apple Pay.</p>
+                            </div>
+                            
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" id="save-info" class="custom-checkbox" checked>
+                                <span class="text-sm text-gray-400">Save payment information for next time</span>
+                            </label>
+                            
+                            <div class="flex gap-4">
+                                <button type="button" onclick="goToStep(2)" class="flex-1 py-4 bg-white/10 border border-white/20 rounded-xl font-bold hover:bg-white/20 transition">
+                                    ← Back
+                                </button>
+                                <button type="submit" id="pay-btn" class="flex-1 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold text-lg hover:opacity-90 transition btn-glow">
+                                    Pay Now 🔒
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Order Confirmation -->
+                    <div id="order-confirmation" class="hidden bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 text-center">
+                        <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-5xl mx-auto mb-6">
+                            ✓
+                        </div>
+                        <h2 class="text-3xl font-black mb-2">Order Confirmed! 🎉</h2>
+                        <p class="text-gray-400 mb-6">Thank you for your purchase. Your order has been received.</p>
+                        
+                        <div class="bg-white/5 rounded-2xl p-6 mb-6 text-left">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">Order Number</span>
+                                <span id="order-number" class="font-bold">#BLK-000000</span>
+                            </div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">Date</span>
+                                <span id="order-date" class="font-bold">Dec 20, 2024</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Total</span>
+                                <span id="order-total" class="font-bold gradient-text">$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-sm text-gray-400 mb-6">A confirmation email has been sent to your email address.</p>
+                        
+                        <a href="products.html" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold text-lg hover:opacity-90 transition">
+                            Continue Shopping 🛍️
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Order Summary Sidebar -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 sticky top-28">
+                        <h3 class="text-xl font-bold mb-6">Order Summary</h3>
+                        
+                        <!-- Cart Items -->
+                        <div id="checkout-items" class="space-y-4 max-h-64 overflow-y-auto mb-6">
+                            <!-- Items rendered by JS -->
+                        </div>
+                        
+                        <!-- Promo Code -->
+                        <div class="mb-6">
+                            <div class="flex gap-2">
+                                <input type="text" id="promo-code" placeholder="Promo code"
+                                       class="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 text-sm">
+                                <button onclick="applyCheckoutPromo()" class="px-4 py-2 bg-white/10 border border-white/20 rounded-xl font-medium hover:bg-white/20 transition text-sm">
+                                    Apply
+                                </button>
+                            </div>
+                            <p id="promo-msg" class="text-xs mt-1 hidden"></p>
+                        </div>
+                        
+                        <!-- Totals -->
+                        <div class="space-y-3 border-t border-white/10 pt-4">
+                            <div class="flex justify-between text-gray-400">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal" class="text-white">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>Shipping</span>
+                                <span id="checkout-shipping" class="text-white">$0.00</span>
+                            </div>
+                            <div id="checkout-discount-row" class="hidden flex justify-between text-green-400">
+                                <span>Discount</span>
+                                <span id="checkout-discount">-$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>Tax</span>
+                                <span id="checkout-tax" class="text-white">$0.00</span>
+                            </div>
+                            <div class="flex justify-between pt-4 border-t border-white/10">
+                                <span class="text-xl font-bold">Total</span>
+                                <span id="checkout-total" class="text-2xl font-black gradient-text">$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Trust Badges -->
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="grid grid-cols-3 gap-2 text-center">
+                                <div class="text-xs">
+                                    <div class="text-xl mb-1">🔒</div>
+                                    <div class="text-gray-400">SSL Secure</div>
+                                </div>
+                                <div class="text-xs">
+                                    <div class="text-xl mb-1">🛡️</div>
+                                    <div class="text-gray-400">Protected</div>
+                                </div>
+                                <div class="text-xs">
+                                    <div class="text-xl mb-1">↩️</div>
+                                    <div class="text-gray-400">30-Day Return</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm">
+            <p>© 2024 BLOCKVERSE. All rights reserved. | <a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        var currentStep = 1;
+        var shippingCost = 0;
+        var promoDiscount = 0;
+
+        function goToStep(step) {
+            currentStep = step;
+            
+            // Hide all steps
+            document.getElementById('form-step-1').classList.add('hidden');
+            document.getElementById('form-step-2').classList.add('hidden');
+            document.getElementById('form-step-3').classList.add('hidden');
+            
+            // Show current step
+            document.getElementById('form-step-' + step).classList.remove('hidden');
+            
+            // Update progress indicators
+            updateProgressIndicators();
+            updateTotals();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressIndicators() {
+            var steps = ['step-info', 'step-shipping', 'step-payment'];
+            var progresses = ['progress-1', 'progress-2'];
+            
+            for (var i = 0; i < steps.length; i++) {
+                var stepEl = document.getElementById(steps[i]);
+                var circleEl = stepEl.querySelector('div');
+                
+                if (i + 1 < currentStep) {
+                    stepEl.classList.add('completed');
+                    stepEl.classList.remove('active');
+                    circleEl.className = 'w-10 h-10 bg-green-500 rounded-full flex items-center justify-center font-bold';
+                    circleEl.innerHTML = '✓';
+                } else if (i + 1 === currentStep) {
+                    stepEl.classList.add('active');
+                    stepEl.classList.remove('completed');
+                    circleEl.className = 'w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center font-bold';
+                    circleEl.innerHTML = (i + 1).toString();
+                } else {
+                    stepEl.classList.remove('active', 'completed');
+                    circleEl.className = 'w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold';
+                    circleEl.innerHTML = (i + 1).toString();
+                }
+            }
+            
+            // Update progress bars
+            document.getElementById('progress-1').style.width = currentStep > 1 ? '100%' : '0%';
+            document.getElementById('progress-2').style.width = currentStep > 2 ? '100%' : '0%';
+        }
+
+        function selectPaymentMethod(method) {
+            var methods = ['card', 'paypal', 'apple'];
+            for (var i = 0; i < methods.length; i++) {
+                document.getElementById('payment-' + methods[i]).classList.add('hidden');
+                document.getElementById('pm-' + methods[i]).className = 'flex-1 py-3 bg-white/10 border border-white/20 rounded-xl font-bold hover:bg-white/20 transition';
+            }
+            document.getElementById('payment-' + method).classList.remove('hidden');
+            document.getElementById('pm-' + method).className = 'flex-1 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold transition';
+        }
+
+        function formatCardNumber(input) {
+            var value = input.value.replace(/\s/g, '').replace(/\D/g, '');
+            var formatted = '';
+            for (var i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) formatted += ' ';
+                formatted += value[i];
+            }
+            input.value = formatted;
+        }
+
+        function formatExpiry(input) {
+            var value = input.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2);
+            }
+            input.value = value;
+        }
+
+        function applyCheckoutPromo() {
+            var code = document.getElementById('promo-code').value.toUpperCase();
+            var msgEl = document.getElementById('promo-msg');
+            var discountRow = document.getElementById('checkout-discount-row');
+            
+            var promoCodes = { 'BLOCK15': 0.15, 'WELCOME10': 0.10, 'VIP20': 0.20 };
+            
+            if (promoCodes[code]) {
+                promoDiscount = promoCodes[code];
+                msgEl.textContent = '✓ Code applied! ' + (promoDiscount * 100) + '% off';
+                msgEl.className = 'text-xs mt-1 text-green-400';
+                discountRow.classList.remove('hidden');
+            } else {
+                promoDiscount = 0;
+                msgEl.textContent = '✗ Invalid promo code';
+                msgEl.className = 'text-xs mt-1 text-red-400';
+                discountRow.classList.add('hidden');
+            }
+            msgEl.classList.remove('hidden');
+            updateTotals();
+        }
+
+        function updateTotals() {
+            var subtotal = getCartTotal();
+            
+            // Get shipping method
+            var shippingRadio = document.querySelector('input[name="shipping-method"]:checked');
+            if (shippingRadio) {
+                var shippingValues = { 'standard': 0, 'express': 14.99, 'overnight': 29.99 };
+                shippingCost = shippingValues[shippingRadio.value] || 0;
+                if (subtotal >= 75 && shippingRadio.value === 'standard') shippingCost = 0;
+            }
+            
+            var discount = subtotal * promoDiscount;
+            var tax = (subtotal - discount) * 0.08;
+            var total = subtotal - discount + shippingCost + tax;
+            
+            document.getElementById('checkout-subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('checkout-shipping').textContent = shippingCost === 0 ? 'FREE' : '$' + shippingCost.toFixed(2);
+            document.getElementById('checkout-discount').textContent = '-$' + discount.toFixed(2);
+            document.getElementById('checkout-tax').textContent = '$' + tax.toFixed(2);
+            document.getElementById('checkout-total').textContent = '$' + total.toFixed(2);
+            
+            document.getElementById('pay-btn').innerHTML = 'Pay $' + total.toFixed(2) + ' 🔒';
+        }
+
+        function renderCheckoutItems() {
+            var container = document.getElementById('checkout-items');
+            if (cart.length === 0) {
+                window.location.href = 'products.html';
+                return;
+            }
+            
+            var html = '';
+            for (var i = 0; i < cart.length; i++) {
+                var item = cart[i];
+                html += '<div class="flex gap-3">' +
+                    '<div class="w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 relative">' +
+                        '<span class="text-2xl">' + item.image + '</span>' +
+                        '<span class="absolute -top-2 -right-2 w-5 h-5 bg-purple-500 rounded-full text-xs flex items-center justify-center">' + item.quantity + '</span>' +
+                    '</div>' +
+                    '<div class="flex-1 min-w-0">' +
+                        '<h4 class="font-bold text-sm truncate">' + item.name + '</h4>' +
+                        '<p class="text-gray-400 text-xs">' + item.category + '</p>' +
+                    '</div>' +
+                    '<div class="text-right">' +
+                        '<span class="font-bold">$' + (item.price * item.quantity).toFixed(2) + '</span>' +
+                    '</div>' +
+                '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function processPayment(e) {
+            e.preventDefault();
+            
+            var payBtn = document.getElementById('pay-btn');
+            payBtn.innerHTML = 'Processing... ⏳';
+            payBtn.disabled = true;
+            
+            setTimeout(function() {
+                // Calculate totals
+                var subtotal = getCartTotal();
+                var shippingRadio = document.querySelector('input[name="shipping-method"]:checked');
+                var shippingValues = { 'standard': 0, 'express': 14.99, 'overnight': 29.99 };
+                var shipping = shippingRadio ? (shippingValues[shippingRadio.value] || 0) : 0;
+                if (subtotal >= 75 && shippingRadio && shippingRadio.value === 'standard') shipping = 0;
+                var discount = subtotal * promoDiscount;
+                var tax = (subtotal - discount) * 0.08;
+                var total = subtotal - discount + shipping + tax;
+                
+                // Create order
+                var orderData = {
+                    items: JSON.parse(JSON.stringify(cart)),
+                    subtotal: subtotal,
+                    shipping: shipping,
+                    tax: tax,
+                    total: total,
+                    shippingAddress: {
+                        name: document.getElementById('checkout-firstname').value + ' ' + document.getElementById('checkout-lastname').value,
+                        address: document.getElementById('checkout-address').value,
+                        city: document.getElementById('checkout-city').value,
+                        state: document.getElementById('checkout-state').value,
+                        zip: document.getElementById('checkout-zip').value
+                    },
+                    paymentMethod: 'card'
+                };
+                
+                var newOrder = createOrder(orderData);
+                
+                var today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                
+                document.getElementById('order-number').textContent = '#' + newOrder.id;
+                document.getElementById('order-date').textContent = today;
+                document.getElementById('order-total').textContent = '$' + total.toFixed(2);
+                
+                // Hide form, show confirmation
+                document.getElementById('form-step-3').classList.add('hidden');
+                document.getElementById('order-confirmation').classList.remove('hidden');
+                
+                // Clear cart
+                clearCart();
+                
+                showToast('Order placed successfully!', 'success');
+            }, 2000);
+        }
+
+        // Pre-fill if logged in
+        function prefillUserData() {
+            if (isLoggedIn()) {
+                var user = getCurrentUser();
+                if (user.email) document.getElementById('checkout-email').value = user.email;
+                if (user.firstName) document.getElementById('checkout-firstname').value = user.firstName;
+                if (user.lastName) document.getElementById('checkout-lastname').value = user.lastName;
+            }
+        }
+
+        // Listen for shipping method changes
+        document.addEventListener('change', function(e) {
+            if (e.target.name === 'shipping-method') {
+                updateTotals();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCheckoutItems();
+            updateTotals();
+            prefillUserData();
+        });
+    </script>
+</body>
+</html>

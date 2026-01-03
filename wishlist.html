@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Search Container -->
+    <div id="search-container"></div>
+    
+    <!-- Side Cart Container -->
+    <div id="sidecart-container"></div>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-8 relative">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 right-10 w-64 h-64 bg-pink-600/20 rounded-full blur-[100px]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex items-center gap-4 mb-4">
+                <a href="account.html" class="text-gray-400 hover:text-white transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+                <h1 class="text-4xl md:text-5xl font-black">
+                    My <span class="gradient-text">Wishlist</span> ❤️
+                </h1>
+            </div>
+            <p class="text-gray-400">Your saved items for later</p>
+        </div>
+    </section>
+
+    <!-- Wishlist Content -->
+    <section class="py-8 pb-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Wishlist Stats -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-3">
+                        <span id="wishlist-count" class="text-2xl font-black gradient-text">0</span>
+                        <span class="text-gray-400 ml-2">items saved</span>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-3">
+                        <span class="text-gray-400">Total value:</span>
+                        <span id="wishlist-value" class="text-xl font-bold ml-2">$0.00</span>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="addAllToCart()" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition flex items-center gap-2">
+                        <span>🛒</span> Add All to Cart
+                    </button>
+                    <button onclick="clearWishlist()" class="px-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium hover:bg-white/20 transition">
+                        Clear All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Wishlist Grid -->
+            <div id="wishlist-grid" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Wishlist items will be loaded here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-wishlist" class="hidden text-center py-20 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl">
+                <div class="text-8xl mb-6">❤️</div>
+                <h3 class="text-2xl font-bold mb-2">Your wishlist is empty</h3>
+                <p class="text-gray-400 mb-8">Save items you love for later!</p>
+                <a href="products.html" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-bold text-lg hover:opacity-90 transition">
+                    Explore Products 🚀
+                </a>
+            </div>
+
+            <!-- Recommended Section -->
+            <div id="recommended-section" class="mt-16">
+                <h2 class="text-2xl font-bold mb-8">You Might Also <span class="gradient-text">Like</span></h2>
+                <div id="recommended-products" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Recommended products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('');
+            
+            // Create some demo wishlist items if empty
+            var wishlist = getWishlist();
+            if (wishlist.length === 0) {
+                // Add some demo items
+                saveWishlist([2, 5, 10]);
+            }
+            
+            loadWishlist();
+            loadRecommended();
+        });
+        
+        function loadWishlist() {
+            var wishlistProducts = getWishlistProducts();
+            var grid = document.getElementById('wishlist-grid');
+            var emptyState = document.getElementById('empty-wishlist');
+            var countEl = document.getElementById('wishlist-count');
+            var valueEl = document.getElementById('wishlist-value');
+            
+            countEl.textContent = wishlistProducts.length;
+            
+            var totalValue = 0;
+            for (var i = 0; i < wishlistProducts.length; i++) {
+                totalValue += wishlistProducts[i].price;
+            }
+            valueEl.textContent = '$' + totalValue.toFixed(2);
+            
+            if (wishlistProducts.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                document.getElementById('recommended-section').classList.add('hidden');
+                return;
+            }
+            
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+            document.getElementById('recommended-section').classList.remove('hidden');
+            
+            var html = '';
+            for (var i = 0; i < wishlistProducts.length; i++) {
+                html += createWishlistCard(wishlistProducts[i]);
+            }
+            
+            grid.innerHTML = html;
+        }
+        
+        function createWishlistCard(product) {
+            var badgeColors = {
+                'HOT': 'from-orange-500 to-red-500',
+                'NEW': 'from-green-500 to-emerald-500',
+                'SALE': 'from-pink-500 to-rose-500',
+                'EXCLUSIVE': 'from-purple-500 to-violet-500',
+                'LIMITED': 'from-yellow-500 to-amber-500'
+            };
+            
+            var badgeHtml = '';
+            if (product.badge) {
+                badgeHtml = '<div class="absolute top-3 left-3 z-10">' +
+                    '<span class="px-3 py-1 bg-gradient-to-r ' + (badgeColors[product.badge] || 'from-purple-500 to-pink-500') + ' rounded-full text-xs font-bold shadow-lg">' + product.badge + '</span>' +
+                '</div>';
+            }
+            
+            var originalPriceHtml = '';
+            if (product.originalPrice) {
+                originalPriceHtml = '<span class="text-sm text-gray-500 line-through ml-2">$' + product.originalPrice + '</span>';
+            }
+            
+            return '<div class="group relative bg-gradient-to-b from-gray-900 to-gray-950 rounded-3xl border border-white/10 overflow-hidden hover:border-purple-500/30 hover:shadow-[0_10px_40px_-15px_rgba(168,85,247,0.3)] transition-all duration-500">' +
+                // Remove button
+                '<button onclick="removeFromWishlistAndReload(' + product.id + ')" class="absolute top-3 right-3 z-20 w-10 h-10 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition-all">' +
+                    '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>' +
+                '</button>' +
+                
+                badgeHtml +
+                
+                // Image
+                '<a href="product-detail.html?id=' + product.id + '" class="block aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center p-6 relative overflow-hidden">' +
+                    '<div class="absolute inset-0 bg-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>' +
+                    '<span class="text-8xl group-hover:scale-110 transition-transform duration-500">' + product.image + '</span>' +
+                '</a>' +
+                
+                // Content
+                '<div class="p-5">' +
+                    '<div class="flex items-center gap-2 mb-2">' +
+                        '<span class="text-xs font-semibold text-purple-400 px-2 py-0.5 bg-purple-500/10 rounded-lg">' + product.category + '</span>' +
+                        '<span class="text-xs text-gray-500">' + product.pieces.toLocaleString() + ' pcs</span>' +
+                    '</div>' +
+                    '<a href="product-detail.html?id=' + product.id + '" class="block">' +
+                        '<h3 class="text-lg font-bold mb-3 hover:text-purple-400 transition">' + product.name + '</h3>' +
+                    '</a>' +
+                    '<div class="flex items-center justify-between">' +
+                        '<div>' +
+                            '<span class="text-2xl font-black gradient-text">$' + product.price + '</span>' +
+                            originalPriceHtml +
+                        '</div>' +
+                        '<button onclick="addToCartFromWishlist(' + product.id + ')" class="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl flex items-center justify-center hover:scale-110 transition-transform cursor-pointer">' +
+                            '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>' +
+                        '</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        }
+        
+        function removeFromWishlistAndReload(productId) {
+            removeFromWishlist(productId);
+            loadWishlist();
+        }
+        
+        function addToCartFromWishlist(productId) {
+            addToCartById(productId);
+        }
+        
+        function addAllToCart() {
+            var wishlistProducts = getWishlistProducts();
+            if (wishlistProducts.length === 0) {
+                showToast('Your wishlist is empty', 'info');
+                return;
+            }
+            
+            for (var i = 0; i < wishlistProducts.length; i++) {
+                addToCart(wishlistProducts[i]);
+            }
+            
+            showToast('All items added to cart! 🛒', 'success');
+            openSideCart();
+        }
+        
+        function clearWishlist() {
+            var wishlistProducts = getWishlistProducts();
+            if (wishlistProducts.length === 0) {
+                showToast('Your wishlist is already empty', 'info');
+                return;
+            }
+            
+            showConfirmModal({
+                icon: '🗑️',
+                title: 'Clear Wishlist?',
+                message: 'Are you sure you want to remove all ' + wishlistProducts.length + ' items from your wishlist? This action cannot be undone.',
+                confirmText: 'Yes, Clear All',
+                cancelText: 'Cancel',
+                onConfirm: function() {
+                    saveWishlist([]);
+                    loadWishlist();
+                    showToast('Wishlist cleared successfully! 🗑️', 'success');
+                }
+            });
+        }
+        
+        function loadRecommended() {
+            var wishlist = getWishlist();
+            var recommended = [];
+            
+            for (var i = 0; i < products.length; i++) {
+                if (wishlist.indexOf(products[i].id) === -1) {
+                    recommended.push(products[i]);
+                }
+                if (recommended.length >= 4) break;
+            }
+            
+            var grid = document.getElementById('recommended-products');
+            var html = '';
+            
+            for (var i = 0; i < recommended.length; i++) {
+                html += createRecommendedCard(recommended[i]);
+            }
+            
+            grid.innerHTML = html;
+        }
+        
+        function createRecommendedCard(product) {
+            var inWishlist = isInWishlist(product.id);
+            var heartClass = inWishlist ? 'text-red-500' : 'text-gray-400 hover:text-red-500';
+            
+            return '<div class="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition">' +
+                '<a href="product-detail.html?id=' + product.id + '" class="block aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">' +
+                    '<span class="text-6xl group-hover:scale-110 transition-transform">' + product.image + '</span>' +
+                '</a>' +
+                '<div class="p-4">' +
+                    '<div class="flex items-center justify-between mb-2">' +
+                        '<span class="text-xs text-purple-400 font-medium">' + product.category + '</span>' +
+                        '<button onclick="toggleWishlistItem(' + product.id + ')" class="' + heartClass + ' transition">' +
+                            '❤️' +
+                        '</button>' +
+                    '</div>' +
+                    '<h4 class="font-bold mb-2 truncate">' + product.name + '</h4>' +
+                    '<div class="flex items-center justify-between">' +
+                        '<span class="font-bold text-lg">$' + product.price + '</span>' +
+                        '<button onclick="addToCartById(' + product.id + ')" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-sm font-bold hover:opacity-90 transition cursor-pointer">' +
+                            'Add to Cart' +
+                        '</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        }
+        
+        function toggleWishlistItem(productId) {
+            if (isInWishlist(productId)) {
+                removeFromWishlist(productId);
+            } else {
+                addToWishlist(productId);
+            }
+            loadWishlist();
+            loadRecommended();
+        }
+    </script>
+</body>
+</html>

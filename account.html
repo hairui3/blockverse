@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Search Container -->
+    <div id="search-container"></div>
+    
+    <!-- Side Cart Container -->
+    <div id="sidecart-container"></div>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-8 relative">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 right-10 w-64 h-64 bg-pink-600/20 rounded-full blur-[100px]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-black">
+                My <span class="gradient-text">Account</span> 👤
+            </h1>
+            <p class="text-gray-400 mt-2">Manage your profile, orders, and preferences</p>
+        </div>
+    </section>
+
+    <!-- Account Content -->
+    <section class="py-8 pb-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Sidebar Navigation -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 sticky top-28">
+                        <!-- User Info -->
+                        <div class="text-center mb-6 pb-6 border-b border-white/10">
+                            <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-3">
+                                👤
+                            </div>
+                            <h3 id="sidebar-username" class="text-xl font-bold">User</h3>
+                            <p id="sidebar-email" class="text-gray-400 text-sm">user@email.com</p>
+                        </div>
+                        
+                        <!-- Navigation -->
+                        <nav class="space-y-2">
+                            <button onclick="showTab('profile')" class="account-nav-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition" data-tab="profile">
+                                <span class="text-xl">👤</span>
+                                <span>Profile Settings</span>
+                            </button>
+                            <a href="orders.html" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-white/10 transition text-gray-300">
+                                <span class="text-xl">📦</span>
+                                <span>My Orders</span>
+                            </a>
+                            <a href="wishlist.html" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-white/10 transition text-gray-300">
+                                <span class="text-xl">❤️</span>
+                                <span>Wishlist</span>
+                            </a>
+                            <button onclick="showTab('security')" class="account-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-white/10 transition text-gray-300" data-tab="security">
+                                <span class="text-xl">🔒</span>
+                                <span>Security</span>
+                            </button>
+                            <button onclick="showTab('preferences')" class="account-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-white/10 transition text-gray-300" data-tab="preferences">
+                                <span class="text-xl">⚙️</span>
+                                <span>Preferences</span>
+                            </button>
+                            <button onclick="logoutUser()" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-red-500/20 transition text-red-400 mt-4">
+                                <span class="text-xl">🚪</span>
+                                <span>Logout</span>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="lg:col-span-3">
+                    <!-- Profile Settings Tab -->
+                    <div id="tab-profile" class="account-tab">
+                        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-8">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                                <span class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">👤</span>
+                                Profile Settings
+                            </h2>
+                            
+                            <form id="profile-form" onsubmit="saveProfile(event)" class="space-y-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm text-gray-400 mb-2">First Name</label>
+                                        <input type="text" id="profile-firstname" 
+                                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                               placeholder="John">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-400 mb-2">Last Name</label>
+                                        <input type="text" id="profile-lastname" 
+                                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                               placeholder="Doe">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Email Address</label>
+                                    <input type="email" id="profile-email" disabled
+                                           class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 cursor-not-allowed">
+                                    <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Phone Number</label>
+                                    <input type="tel" id="profile-phone" 
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                           placeholder="(555) 123-4567">
+                                </div>
+                                
+                                <div class="border-t border-white/10 pt-6">
+                                    <h3 class="text-lg font-bold mb-4">Shipping Address</h3>
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm text-gray-400 mb-2">Street Address</label>
+                                            <input type="text" id="profile-address" 
+                                                   class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                                   placeholder="123 Main Street">
+                                        </div>
+                                        
+                                        <div class="grid md:grid-cols-3 gap-4">
+                                            <div>
+                                                <label class="block text-sm text-gray-400 mb-2">City</label>
+                                                <input type="text" id="profile-city" 
+                                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                                       placeholder="Los Angeles">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm text-gray-400 mb-2">State</label>
+                                                <div class="relative group">
+                                                    <select id="profile-state" 
+                                                            class="w-full px-4 py-3 bg-gradient-to-r from-white/5 to-white/10 border border-white/20 rounded-xl text-white font-medium hover:border-purple-500/50 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300">
+                                                        <option value="">🌎 Select State</option>
+                                                        <option value="CA">🌴 California</option>
+                                                        <option value="NY">🗽 New York</option>
+                                                        <option value="TX">🤠 Texas</option>
+                                                        <option value="FL">🌊 Florida</option>
+                                                        <option value="WA">🌲 Washington</option>
+                                                    </select>
+                                                    <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 pointer-events-none transition-all duration-300"></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm text-gray-400 mb-2">ZIP Code</label>
+                                                <input type="text" id="profile-zip" 
+                                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                                       placeholder="90001">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end gap-4 pt-4">
+                                    <button type="button" onclick="loadProfileData()" class="px-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium hover:bg-white/20 transition">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Security Tab -->
+                    <div id="tab-security" class="account-tab hidden">
+                        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-8">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                                <span class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">🔒</span>
+                                Security Settings
+                            </h2>
+                            
+                            <form id="password-form" onsubmit="updatePassword(event)" class="space-y-6">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Current Password</label>
+                                    <input type="password" id="current-password" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                           placeholder="••••••••">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">New Password</label>
+                                    <input type="password" id="new-password" required minlength="6"
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                           placeholder="Min. 6 characters">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Confirm New Password</label>
+                                    <input type="password" id="confirm-new-password" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                           placeholder="••••••••">
+                                </div>
+                                
+                                <div id="password-error" class="hidden bg-red-500/20 border border-red-500/50 rounded-xl p-4 text-red-300 text-sm"></div>
+                                
+                                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition">
+                                    Update Password
+                                </button>
+                            </form>
+                            
+                            <div class="mt-8 pt-8 border-t border-white/10">
+                                <h3 class="text-lg font-bold mb-4 text-red-400">Danger Zone</h3>
+                                <p class="text-gray-400 text-sm mb-4">Once you delete your account, there is no going back. Please be certain.</p>
+                                <button onclick="confirmDeleteAccount()" class="px-6 py-3 bg-red-500/20 border border-red-500/50 text-red-400 rounded-xl font-medium hover:bg-red-500/30 transition">
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Tab -->
+                    <div id="tab-preferences" class="account-tab hidden">
+                        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-8">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                                <span class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">⚙️</span>
+                                Preferences
+                            </h2>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl">
+                                    <div>
+                                        <h4 class="font-medium">Email Notifications</h4>
+                                        <p class="text-sm text-gray-400">Receive order updates and shipping notifications</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="pref-email" checked class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-pink-600"></div>
+                                    </label>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl">
+                                    <div>
+                                        <h4 class="font-medium">Marketing Emails</h4>
+                                        <p class="text-sm text-gray-400">Receive news about new products and exclusive offers</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="pref-marketing" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-pink-600"></div>
+                                    </label>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl">
+                                    <div>
+                                        <h4 class="font-medium">SMS Notifications</h4>
+                                        <p class="text-sm text-gray-400">Receive text messages for order updates</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="pref-sms" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-pink-600"></div>
+                                    </label>
+                                </div>
+                                
+                                <div class="pt-4">
+                                    <button onclick="savePreferences()" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition">
+                                        Save Preferences
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('');
+            
+            if (!isLoggedIn()) {
+                window.location.href = 'login.html?redirect=account.html';
+                return;
+            }
+            
+            loadProfileData();
+        });
+        
+        function loadProfileData() {
+            var user = getUserFullData();
+            if (user) {
+                document.getElementById('sidebar-username').textContent = user.firstName ? user.firstName + ' ' + user.lastName : user.username;
+                document.getElementById('sidebar-email').textContent = user.email;
+                
+                document.getElementById('profile-firstname').value = user.firstName || '';
+                document.getElementById('profile-lastname').value = user.lastName || '';
+                document.getElementById('profile-email').value = user.email || '';
+                document.getElementById('profile-phone').value = user.phone || '';
+                document.getElementById('profile-address').value = user.address || '';
+                document.getElementById('profile-city').value = user.city || '';
+                document.getElementById('profile-state').value = user.state || '';
+                document.getElementById('profile-zip').value = user.zip || '';
+            }
+        }
+        
+        function showTab(tabName) {
+            // Hide all tabs
+            var tabs = document.querySelectorAll('.account-tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.add('hidden');
+            }
+            
+            // Show selected tab
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            
+            // Update nav buttons
+            var navBtns = document.querySelectorAll('.account-nav-btn');
+            for (var i = 0; i < navBtns.length; i++) {
+                navBtns[i].classList.remove('active', 'bg-gradient-to-r', 'from-purple-600/20', 'to-pink-600/20', 'text-white');
+                navBtns[i].classList.add('text-gray-300');
+            }
+            
+            var activeBtn = document.querySelector('.account-nav-btn[data-tab="' + tabName + '"]');
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'bg-gradient-to-r', 'from-purple-600/20', 'to-pink-600/20', 'text-white');
+                activeBtn.classList.remove('text-gray-300');
+            }
+        }
+        
+        function saveProfile(e) {
+            e.preventDefault();
+            
+            var userData = {
+                firstName: document.getElementById('profile-firstname').value,
+                lastName: document.getElementById('profile-lastname').value,
+                phone: document.getElementById('profile-phone').value,
+                address: document.getElementById('profile-address').value,
+                city: document.getElementById('profile-city').value,
+                state: document.getElementById('profile-state').value,
+                zip: document.getElementById('profile-zip').value
+            };
+            
+            var result = updateUserProfile(userData);
+            
+            if (result.success) {
+                showToast(result.message, 'success');
+                loadProfileData();
+                updateAuthUI();
+            } else {
+                showToast(result.message, 'error');
+            }
+        }
+        
+        function updatePassword(e) {
+            e.preventDefault();
+            
+            var currentPwd = document.getElementById('current-password').value;
+            var newPwd = document.getElementById('new-password').value;
+            var confirmPwd = document.getElementById('confirm-new-password').value;
+            var errorEl = document.getElementById('password-error');
+            
+            if (newPwd !== confirmPwd) {
+                errorEl.textContent = 'New passwords do not match';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            
+            var result = changePassword(currentPwd, newPwd);
+            
+            if (result.success) {
+                showToast(result.message, 'success');
+                document.getElementById('password-form').reset();
+                errorEl.classList.add('hidden');
+            } else {
+                errorEl.textContent = result.message;
+                errorEl.classList.remove('hidden');
+            }
+        }
+        
+        function savePreferences() {
+            showToast('Preferences saved successfully!', 'success');
+        }
+        
+        function confirmDeleteAccount() {
+            showConfirmModal({
+                icon: '⚠️',
+                title: 'Delete Account?',
+                message: 'Are you sure you want to delete your account? All your data, orders, and wishlist will be permanently removed. This action cannot be undone.',
+                confirmText: 'Yes, Delete Account',
+                cancelText: 'Cancel',
+                onConfirm: function() {
+                    showToast('Account deleted successfully', 'success');
+                    logoutUser();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

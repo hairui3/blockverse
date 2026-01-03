@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Search Container -->
+    <div id="search-container"></div>
+    
+    <!-- Side Cart Container -->
+    <div id="sidecart-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="pt-24 pb-4">
+        <div class="max-w-4xl mx-auto px-6">
+            <nav class="flex items-center gap-2 text-sm text-gray-400">
+                <a href="index.html" class="hover:text-white transition">Home</a>
+                <span>/</span>
+                <a href="blog.html" class="hover:text-white transition">Blog</a>
+                <span>/</span>
+                <span id="breadcrumb-title" class="text-white truncate">Loading...</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Article -->
+    <article class="py-8">
+        <div class="max-w-4xl mx-auto px-6">
+            <!-- Header -->
+            <header class="mb-12">
+                <span id="post-category" class="inline-block px-4 py-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-sm font-bold mb-4">
+                    Category
+                </span>
+                <h1 id="post-title" class="text-4xl md:text-5xl font-black mb-6">
+                    Loading...
+                </h1>
+                <div class="flex flex-wrap items-center gap-4 text-gray-400">
+                    <div class="flex items-center gap-3">
+                        <div id="author-avatar" class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-xl font-bold">
+                            A
+                        </div>
+                        <div>
+                            <div id="post-author" class="text-white font-medium">Author</div>
+                            <div id="post-date" class="text-sm">Date</div>
+                        </div>
+                    </div>
+                    <span>•</span>
+                    <span id="post-readtime">5 min read</span>
+                    <span>•</span>
+                    <div class="flex items-center gap-2">
+                        <span>Share:</span>
+                        <button class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition text-sm">🐦</button>
+                        <button class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition text-sm">📘</button>
+                        <button class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition text-sm">🔗</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Featured Image -->
+            <div class="mb-12">
+                <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl flex items-center justify-center border border-white/10">
+                    <span id="post-image" class="text-[180px] float-animation">🤖</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div id="post-content" class="prose prose-invert prose-lg max-w-none">
+                <!-- Content loaded by JS -->
+            </div>
+
+            <!-- Tags -->
+            <div class="mt-12 pt-8 border-t border-white/10">
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-gray-400 mr-2">Tags:</span>
+                    <a href="#" class="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20 transition">#building</a>
+                    <a href="#" class="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20 transition">#mecha</a>
+                    <a href="#" class="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20 transition">#collection</a>
+                    <a href="#" class="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20 transition">#2024</a>
+                </div>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="mt-12 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 md:p-8">
+                <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                    <div id="author-avatar-large" class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-4xl font-bold flex-shrink-0">
+                        A
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">About the Author</h4>
+                        <p id="author-name-full" class="text-purple-400 font-medium mb-3">Alex Chen</p>
+                        <p class="text-gray-400">
+                            Passionate block builder and collector with over 10 years of experience. 
+                            Loves sharing building tips and discovering new sets from around the world.
+                            Follow for more awesome content!
+                        </p>
+                        <div class="flex gap-3 mt-4">
+                            <a href="#" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-medium text-sm hover:opacity-90 transition">Follow</a>
+                            <a href="#" class="px-4 py-2 bg-white/10 rounded-xl font-medium text-sm hover:bg-white/20 transition">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-6">Comments (12)</h3>
+                
+                <!-- Comment Form -->
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 mb-8">
+                    <textarea placeholder="Share your thoughts..." 
+                              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 resize-none h-24 mb-4"></textarea>
+                    <div class="flex justify-end">
+                        <button class="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-medium hover:opacity-90 transition">
+                            Post Comment
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Comments List -->
+                <div class="space-y-6">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                J
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="font-bold">John Builder</span>
+                                    <span class="text-gray-500 text-sm">2 hours ago</span>
+                                </div>
+                                <p class="text-gray-300">
+                                    Great article! I've been eyeing the Gundam RX-78 set for a while now. 
+                                    This review convinced me to finally get it. Thanks for the detailed breakdown!
+                                </p>
+                                <div class="flex items-center gap-4 mt-3 text-sm">
+                                    <button class="text-gray-400 hover:text-white transition flex items-center gap-1">
+                                        ❤️ 24
+                                    </button>
+                                    <button class="text-gray-400 hover:text-white transition">
+                                        Reply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                S
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="font-bold">Sarah M.</span>
+                                    <span class="text-gray-500 text-sm">5 hours ago</span>
+                                </div>
+                                <p class="text-gray-300">
+                                    I recently completed the Cyber Dragon set and it was an amazing build experience. 
+                                    The LED integration is chef's kiss! 🐉✨
+                                </p>
+                                <div class="flex items-center gap-4 mt-3 text-sm">
+                                    <button class="text-gray-400 hover:text-white transition flex items-center gap-1">
+                                        ❤️ 18
+                                    </button>
+                                    <button class="text-gray-400 hover:text-white transition">
+                                        Reply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                M
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="font-bold">MechaMaster99</span>
+                                    <span class="text-gray-500 text-sm">1 day ago</span>
+                                </div>
+                                <p class="text-gray-300">
+                                    Would love to see a comparison between different mecha brands. 
+                                    There are so many options out there and it's hard to choose!
+                                </p>
+                                <div class="flex items-center gap-4 mt-3 text-sm">
+                                    <button class="text-gray-400 hover:text-white transition flex items-center gap-1">
+                                        ❤️ 9
+                                    </button>
+                                    <button class="text-gray-400 hover:text-white transition">
+                                        Reply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium hover:bg-white/20 transition">
+                    Load More Comments
+                </button>
+            </div>
+        </div>
+    </article>
+
+    <!-- Related Posts -->
+    <section class="py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-8">Related <span class="gradient-text">Posts</span></h2>
+            <div id="related-posts" class="grid md:grid-cols-3 gap-6">
+                <!-- Related posts rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        var currentPost = null;
+
+        function loadPost() {
+            var postId = getUrlParam('id');
+            currentPost = getBlogPostById(postId);
+            
+            if (!currentPost) {
+                window.location.href = 'blog.html';
+                return;
+            }
+            
+            // Update page
+            document.title = currentPost.title + ' - BLOCKVERSE Blog';
+            document.getElementById('breadcrumb-title').textContent = currentPost.title;
+            document.getElementById('post-title').textContent = currentPost.title;
+            document.getElementById('post-category').textContent = currentPost.category;
+            document.getElementById('post-image').textContent = currentPost.image;
+            document.getElementById('post-author').textContent = currentPost.author;
+            document.getElementById('post-date').textContent = currentPost.date;
+            document.getElementById('post-readtime').textContent = currentPost.readTime;
+            document.getElementById('author-avatar').textContent = currentPost.author.charAt(0);
+            document.getElementById('author-avatar-large').textContent = currentPost.author.charAt(0);
+            document.getElementById('author-name-full').textContent = currentPost.author;
+            
+            // Generate content
+            var content = '<p class="text-xl text-gray-300 leading-relaxed mb-8">' + currentPost.excerpt + '</p>' +
+                '<p class="text-gray-400 mb-6">' + currentPost.content + '</p>' +
+                '<h2 class="text-2xl font-bold mt-10 mb-4">Key Highlights</h2>' +
+                '<ul class="list-disc list-inside space-y-2 text-gray-400 mb-6">' +
+                    '<li>Premium quality materials and precision engineering</li>' +
+                    '<li>Detailed instruction manuals for smooth building experience</li>' +
+                    '<li>Collector-grade packaging and presentation</li>' +
+                    '<li>Compatible with major building block brands</li>' +
+                '</ul>' +
+                '<h2 class="text-2xl font-bold mt-10 mb-4">Our Recommendations</h2>' +
+                '<p class="text-gray-400 mb-6">Whether you\'re a seasoned collector or just starting your building journey, there\'s something for everyone in the 2024 lineup. We recommend starting with the mid-range sets to get a feel for the quality, then graduating to the premium collector editions.</p>' +
+                '<blockquote class="border-l-4 border-purple-500 pl-6 py-2 my-8 bg-white/5 rounded-r-xl">' +
+                    '<p class="text-xl italic text-gray-300">"Building blocks aren\'t just toys - they\'re a form of artistic expression that brings joy to people of all ages."</p>' +
+                    '<cite class="text-gray-500 text-sm">— The BLOCKVERSE Team</cite>' +
+                '</blockquote>' +
+                '<p class="text-gray-400">Stay tuned for more reviews, tutorials, and behind-the-scenes content. Happy building!</p>';
+            
+            document.getElementById('post-content').innerHTML = content;
+            
+            // Load related posts
+            loadRelatedPosts();
+        }
+
+        function loadRelatedPosts() {
+            var related = [];
+            for (var i = 0; i < blogPosts.length; i++) {
+                if (blogPosts[i].id !== currentPost.id) {
+                    related.push(blogPosts[i]);
+                }
+                if (related.length >= 3) break;
+            }
+            
+            var container = document.getElementById('related-posts');
+            var html = '';
+            
+            for (var i = 0; i < related.length; i++) {
+                var post = related[i];
+                html += '<a href="blog-post.html?id=' + post.id + '" class="blog-card block group">' +
+                    '<div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/50 transition">' +
+                        '<div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">' +
+                            '<span class="text-6xl">' + post.image + '</span>' +
+                        '</div>' +
+                        '<div class="p-4">' +
+                            '<span class="text-xs text-purple-400 font-medium">' + post.category + '</span>' +
+                            '<h3 class="font-bold mt-1 group-hover:text-purple-400 transition line-clamp-2">' + post.title + '</h3>' +
+                            '<p class="text-gray-500 text-sm mt-2">' + post.date + '</p>' +
+                        '</div>' +
+                    '</div>' +
+                '</a>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('blog');
+            loadPost();
+        });
+    </script>
+</body>
+</html>

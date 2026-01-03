@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Search Container -->
+    <div id="search-container"></div>
+    
+    <!-- Side Cart Container -->
+    <div id="sidecart-container"></div>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-12 relative bg-grid">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 blob blur-3xl"></div>
+        <div class="absolute bottom-0 right-10 w-64 h-64 bg-pink-600/20 blob blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-purple-400 font-semibold text-sm uppercase tracking-wider">Get In Touch</span>
+                <h1 class="text-4xl md:text-6xl font-black mt-4 mb-6">
+                    Let's <span class="gradient-text">Connect</span>
+                </h1>
+                <p class="text-xl text-gray-400">
+                    Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Contact Info -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-2xl mb-4">
+                            📍
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Visit Us</h3>
+                        <p class="text-gray-400">
+                            123 Block Street<br>
+                            Los Angeles, CA 90012<br>
+                            United States
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center text-2xl mb-4">
+                            📧
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Email Us</h3>
+                        <p class="text-gray-400">
+                            General: hello@blockverse.com<br>
+                            Support: support@blockverse.com<br>
+                            Business: sales@blockverse.com
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center text-2xl mb-4">
+                            📞
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Call Us</h3>
+                        <p class="text-gray-400">
+                            Toll Free: 1-800-BLOCKS<br>
+                            Local: (310) 555-0123<br>
+                            Mon-Fri: 9AM - 6PM PST
+                        </p>
+                    </div>
+
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
+                        <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-xl hover:scale-110 transition">📸</a>
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-xl hover:scale-110 transition">🐦</a>
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-red-500 to-orange-500 rounded-xl flex items-center justify-center text-xl hover:scale-110 transition">📺</a>
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center text-xl hover:scale-110 transition">💬</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
+                        <h2 class="text-2xl font-bold mb-6">Send us a Message</h2>
+                        <form id="contact-form" onsubmit="submitForm(event)" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">First Name *</label>
+                                    <input type="text" name="firstName" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                           placeholder="John">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Last Name *</label>
+                                    <input type="text" name="lastName" required
+                                           class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                           placeholder="Doe">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Email Address *</label>
+                                <input type="email" name="email" required
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                       placeholder="john@example.com">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Subject *</label>
+                                <div class="relative group">
+                                    <select name="subject" required
+                                            class="w-full px-4 py-3 bg-gradient-to-r from-white/5 to-white/10 border border-white/20 rounded-xl text-white font-medium hover:border-purple-500/50 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300">
+                                        <option value="">📋 Select a subject</option>
+                                        <option value="general">💬 General Inquiry</option>
+                                        <option value="order">📦 Order Status</option>
+                                        <option value="support">🔧 Product Support</option>
+                                        <option value="returns">↩️ Returns & Refunds</option>
+                                        <option value="wholesale">🏢 Wholesale Inquiry</option>
+                                        <option value="other">✨ Other</option>
+                                    </select>
+                                    <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 pointer-events-none transition-all duration-300"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Order Number (if applicable)</label>
+                                <input type="text" name="orderNumber"
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition"
+                                       placeholder="BLK-12345">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Message *</label>
+                                <textarea name="message" required rows="5"
+                                          class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:border-purple-500 transition resize-none"
+                                          placeholder="Tell us how we can help..."></textarea>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <input type="checkbox" id="newsletter" name="newsletter" class="custom-checkbox mt-1">
+                                <label for="newsletter" class="text-gray-400 text-sm">
+                                    Subscribe to our newsletter for exclusive drops, early access, and special offers.
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-bold text-lg hover:opacity-90 transition btn-glow">
+                                Send Message 🚀
+                            </button>
+                        </form>
+                        
+                        <div id="form-success" class="hidden text-center py-12">
+                            <div class="text-6xl mb-4">✅</div>
+                            <h3 class="text-2xl font-bold mb-2">Message Sent!</h3>
+                            <p class="text-gray-400 mb-6">We'll get back to you within 24-48 hours.</p>
+                            <button onclick="resetForm()" class="px-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium hover:bg-white/20 transition">
+                                Send Another Message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-purple-400 font-semibold text-sm uppercase tracking-wider">FAQ</span>
+                <h2 class="text-3xl md:text-4xl font-black mt-2">Frequently Asked <span class="gradient-text">Questions</span></h2>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="faq-item bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                        <span class="font-bold">How long does shipping take?</span>
+                        <span class="faq-icon text-2xl transition-transform">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-gray-400">
+                        Standard shipping takes 5-7 business days within the continental US. Express shipping (2-3 business days) is available for an additional fee. International shipping varies by location.
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                        <span class="font-bold">What is your return policy?</span>
+                        <span class="faq-icon text-2xl transition-transform">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-gray-400">
+                        We offer a 30-day money-back guarantee on all unopened products. If your set arrives damaged or with missing pieces, please contact us immediately and we'll send replacements at no cost.
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                        <span class="font-bold">Are your blocks compatible with other brands?</span>
+                        <span class="faq-icon text-2xl transition-transform">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-gray-400">
+                        Yes! Our blocks are designed to be compatible with most major building block brands. The precision engineering ensures a perfect fit every time.
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                        <span class="font-bold">Do you offer wholesale pricing?</span>
+                        <span class="faq-icon text-2xl transition-transform">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-gray-400">
+                        Yes, we offer wholesale pricing for retailers and bulk orders. Please contact our sales team at sales@blockverse.com for more information.
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                        <span class="font-bold">What age range are your sets suitable for?</span>
+                        <span class="faq-icon text-2xl transition-transform">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-gray-400">
+                        Our sets range from beginner-friendly (ages 8+) to advanced collector editions (ages 16+). Each product page clearly indicates the recommended age range and difficulty level.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('contact');
+        });
+        
+        function submitForm(e) {
+            e.preventDefault();
+            var form = document.getElementById('contact-form');
+            var success = document.getElementById('form-success');
+            
+            form.classList.add('hidden');
+            success.classList.remove('hidden');
+            
+            showToast('Message sent successfully!');
+        }
+
+        function resetForm() {
+            var form = document.getElementById('contact-form');
+            var success = document.getElementById('form-success');
+            
+            form.reset();
+            form.classList.remove('hidden');
+            success.classList.add('hidden');
+        }
+
+        function toggleFaq(button) {
+            var content = button.nextElementSibling;
+            var icon = button.querySelector('.faq-icon');
+            
+            content.classList.toggle('hidden');
+            icon.textContent = content.classList.contains('hidden') ? '+' : '−';
+            icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Search Container -->
+    <div id="search-container"></div>
+    
+    <!-- Side Cart Container -->
+    <div id="sidecart-container"></div>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 relative bg-grid">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 blob blur-3xl"></div>
+        <div class="absolute bottom-0 right-10 w-64 h-64 bg-pink-600/20 blob blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center">
+                <span class="text-purple-400 font-semibold text-sm uppercase tracking-wider">Our Blog</span>
+                <h1 class="text-4xl md:text-6xl font-black mt-4 mb-6">
+                    Block <span class="gradient-text">Chronicle</span> 📝
+                </h1>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    News, tutorials, behind-the-scenes, and community spotlights from the BLOCKVERSE universe.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Post -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <a href="blog-post.html?id=1" class="block group">
+                <div class="bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-3xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition">
+                    <div class="grid md:grid-cols-2 gap-8 p-8 md:p-12">
+                        <div class="flex items-center justify-center">
+                            <div class="w-48 h-48 md:w-64 md:h-64 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl flex items-center justify-center float-animation">
+                                <span class="text-[120px] md:text-[160px]">🤖</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="inline-block px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-xs font-bold w-fit mb-4">FEATURED</span>
+                            <h2 class="text-3xl md:text-4xl font-black mb-4 group-hover:text-purple-400 transition">
+                                Top 10 Mecha Sets of 2024
+                            </h2>
+                            <p class="text-gray-400 mb-6">
+                                Discover the most impressive mecha building sets that have taken the collector world by storm this year. From intricate Gundam-inspired designs to original creations.
+                            </p>
+                            <div class="flex items-center gap-4 text-sm text-gray-400">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-xs font-bold">A</div>
+                                    <span>Alex Chen</span>
+                                </div>
+                                <span>•</span>
+                                <span>Dec 15, 2024</span>
+                                <span>•</span>
+                                <span>5 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap gap-3 justify-center">
+                <button onclick="filterBlog('all')" class="blog-filter active px-5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-medium transition" data-category="all">
+                    All Posts
+                </button>
+                <button onclick="filterBlog('news')" class="blog-filter px-5 py-2 bg-white/10 hover:bg-white/20 rounded-full font-medium transition" data-category="news">
+                    📰 News
+                </button>
+                <button onclick="filterBlog('tutorials')" class="blog-filter px-5 py-2 bg-white/10 hover:bg-white/20 rounded-full font-medium transition" data-category="tutorials">
+                    🔧 Tutorials
+                </button>
+                <button onclick="filterBlog('reviews')" class="blog-filter px-5 py-2 bg-white/10 hover:bg-white/20 rounded-full font-medium transition" data-category="reviews">
+                    ⭐ Reviews
+                </button>
+                <button onclick="filterBlog('community')" class="blog-filter px-5 py-2 bg-white/10 hover:bg-white/20 rounded-full font-medium transition" data-category="community">
+                    👥 Community
+                </button>
+                <button onclick="filterBlog('behind')" class="blog-filter px-5 py-2 bg-white/10 hover:bg-white/20 rounded-full font-medium transition" data-category="behind">
+                    🎬 Behind the Scenes
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div id="blog-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Posts rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        var currentCategory = 'all';
+
+        function createBlogCard(post) {
+            var categoryColors = {
+                'Reviews': 'from-orange-500 to-red-500',
+                'Tutorials': 'from-green-500 to-emerald-500',
+                'Behind the Scenes': 'from-purple-500 to-violet-500',
+                'Lifestyle': 'from-pink-500 to-rose-500',
+                'News': 'from-blue-500 to-cyan-500',
+                'Community': 'from-yellow-500 to-orange-500'
+            };
+            
+            var colorClass = categoryColors[post.category] || 'from-purple-500 to-pink-500';
+            
+            return '<a href="blog-post.html?id=' + post.id + '" class="blog-card block group" data-category="' + post.category.toLowerCase() + '">' +
+                '<div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:border-purple-500/50 transition">' +
+                    '<div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center overflow-hidden">' +
+                        '<span class="text-8xl blog-image group-hover:scale-110 transition-transform duration-300">' + post.image + '</span>' +
+                    '</div>' +
+                    '<div class="p-6">' +
+                        '<div class="flex items-center gap-3 mb-3">' +
+                            '<span class="px-3 py-1 bg-gradient-to-r ' + colorClass + ' rounded-full text-xs font-bold">' + post.category + '</span>' +
+                            '<span class="text-gray-500 text-sm">' + post.readTime + '</span>' +
+                        '</div>' +
+                        '<h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition">' + post.title + '</h3>' +
+                        '<p class="text-gray-400 text-sm mb-4 line-clamp-2">' + post.excerpt + '</p>' +
+                        '<div class="flex items-center gap-3 text-sm text-gray-500">' +
+                            '<div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-xs font-bold">' + post.author.charAt(0) + '</div>' +
+                            '<span>' + post.author + '</span>' +
+                            '<span>•</span>' +
+                            '<span>' + post.date + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</a>';
+        }
+
+        function renderBlogPosts() {
+            var grid = document.getElementById('blog-grid');
+            var html = '';
+            
+            for (var i = 0; i < blogPosts.length; i++) {
+                var post = blogPosts[i];
+                if (currentCategory === 'all' || post.category.toLowerCase().indexOf(currentCategory) !== -1) {
+                    html += createBlogCard(post);
+                }
+            }
+            
+            grid.innerHTML = html || '<div class="col-span-full text-center py-12 text-gray-400">No posts found in this category.</div>';
+        }
+
+        function filterBlog(category) {
+            currentCategory = category;
+            
+            var buttons = document.querySelectorAll('.blog-filter');
+            for (var i = 0; i < buttons.length; i++) {
+                var btn = buttons[i];
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = 'blog-filter active px-5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-medium transition';
+                } else {
+                    btn.className = 'blog-filter px-5 py-2 bg-white/10 hover:bg-white/20 rounded-full font-medium transition';
+                }
+            }
+            
+            renderBlogPosts();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('blog');
+            renderBlogPosts();
+        });
+    </script>
+</body>
+</html>

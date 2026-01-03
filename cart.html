@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - BLOCKVERSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Search Container -->
+    <div id="search-container"></div>
+    
+    <!-- Side Cart Container (not needed on cart page but keep for consistency) -->
+    <div id="sidecart-container"></div>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-8 relative bg-grid">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 blob blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-black">
+                Shopping <span class="gradient-text">Cart</span> 🛒
+            </h1>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Cart Items -->
+                <div class="lg:col-span-2">
+                    <div id="cart-items" class="space-y-4">
+                        <!-- Cart items will be injected here -->
+                    </div>
+                    
+                    <!-- Empty Cart State -->
+                    <div id="empty-cart" class="hidden text-center py-20 bg-white/5 rounded-3xl border border-white/10">
+                        <div class="text-8xl mb-6">🛒</div>
+                        <h3 class="text-2xl font-bold mb-2">Your cart is empty</h3>
+                        <p class="text-gray-400 mb-8">Looks like you haven't added any blocks yet!</p>
+                        <a href="products.html" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-bold text-lg hover:opacity-90 transition">
+                            Start Shopping 🚀
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 sticky top-28">
+                        <h3 class="text-xl font-bold mb-6">Order Summary</h3>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between text-gray-400">
+                                <span>Subtotal</span>
+                                <span id="subtotal" class="text-white font-medium">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>Shipping</span>
+                                <span id="shipping" class="text-white font-medium">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>Tax (8%)</span>
+                                <span id="tax" class="text-white font-medium">$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Promo Code -->
+                        <div class="mb-6">
+                            <label class="text-sm text-gray-400 mb-2 block">Promo Code</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="promo-input" placeholder="Enter code" 
+                                       class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500">
+                                <button onclick="applyPromo()" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl font-medium hover:bg-white/20 transition">
+                                    Apply
+                                </button>
+                            </div>
+                            <div id="promo-message" class="text-sm mt-2 hidden"></div>
+                        </div>
+                        
+                        <div class="border-t border-white/10 pt-4 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-xl font-bold">Total</span>
+                                <span id="total" class="text-2xl font-black gradient-text">$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <button id="checkout-btn" onclick="proceedToCheckout()" class="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-bold text-lg hover:opacity-90 transition btn-glow mb-4">
+                            Proceed to Checkout 💳
+                        </button>
+                        
+                        <a href="products.html" class="block text-center text-purple-400 hover:text-purple-300 transition font-medium">
+                            ← Continue Shopping
+                        </a>
+                        
+                        <!-- Trust Badges -->
+                        <div class="mt-8 pt-6 border-t border-white/10">
+                            <div class="grid grid-cols-3 gap-4 text-center">
+                                <div>
+                                    <div class="text-2xl mb-1">🔒</div>
+                                    <div class="text-xs text-gray-400">Secure Payment</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl mb-1">🚚</div>
+                                    <div class="text-xs text-gray-400">Free Shipping</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl mb-1">↩️</div>
+                                    <div class="text-xs text-gray-400">Easy Returns</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Products -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-8">You May Also <span class="gradient-text">Like</span></h2>
+            <div id="recommended-products" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Recommended products injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        let promoApplied = false;
+        let promoDiscount = 0;
+
+        function renderCartPage() {
+            const cartItemsEl = document.getElementById('cart-items');
+            const emptyCartEl = document.getElementById('empty-cart');
+            
+            if (cart.length === 0) {
+                cartItemsEl.classList.add('hidden');
+                emptyCartEl.classList.remove('hidden');
+                document.getElementById('checkout-btn').disabled = true;
+                document.getElementById('checkout-btn').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                cartItemsEl.classList.remove('hidden');
+                emptyCartEl.classList.add('hidden');
+                document.getElementById('checkout-btn').disabled = false;
+                document.getElementById('checkout-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+                
+                var cartHtml = '';
+                for (var i = 0; i < cart.length; i++) {
+                    var item = cart[i];
+                    cartHtml += '<div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 flex flex-col sm:flex-row gap-6">' +
+                        '<a href="product-detail.html?id=' + item.id + '" class="w-full sm:w-32 h-32 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center flex-shrink-0">' +
+                            '<span class="text-6xl">' + item.image + '</span>' +
+                        '</a>' +
+                        '<div class="flex-1">' +
+                            '<div class="flex items-start justify-between mb-2">' +
+                                '<div>' +
+                                    '<a href="product-detail.html?id=' + item.id + '" class="text-xl font-bold hover:text-purple-400 transition">' + item.name + '</a>' +
+                                    '<p class="text-gray-400 text-sm">' + item.category + ' • ' + item.pieces.toLocaleString() + ' pieces</p>' +
+                                '</div>' +
+                                '<button class="cart-remove-btn text-gray-500 hover:text-red-400 transition p-2" data-item-id="' + item.id + '">' +
+                                    '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                                        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>' +
+                                    '</svg>' +
+                                '</button>' +
+                            '</div>' +
+                            '<div class="flex items-center justify-between mt-4">' +
+                                '<div class="flex items-center gap-3">' +
+                                    '<button class="cart-qty-btn w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition" data-item-id="' + item.id + '" data-delta="-1">-</button>' +
+                                    '<span class="font-bold w-8 text-center">' + item.quantity + '</span>' +
+                                    '<button class="cart-qty-btn w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition" data-item-id="' + item.id + '" data-delta="1">+</button>' +
+                                '</div>' +
+                                '<div class="text-right">' +
+                                    '<div class="text-xl font-bold">$' + (item.price * item.quantity).toFixed(2) + '</div>' +
+                                    '<div class="text-gray-400 text-sm">$' + item.price + ' each</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+                }
+                cartItemsEl.innerHTML = cartHtml;
+            }
+            
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const subtotal = getCartTotal();
+            const shipping = subtotal > 75 ? 0 : 9.99;
+            const discount = promoApplied ? subtotal * promoDiscount : 0;
+            const tax = (subtotal - discount) * 0.08;
+            const total = subtotal - discount + shipping + tax;
+            
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function applyPromo() {
+            const code = document.getElementById('promo-input').value.toUpperCase();
+            const messageEl = document.getElementById('promo-message');
+            
+            const promoCodes = {
+                'BLOCK15': 0.15,
+                'WELCOME10': 0.10,
+                'VIP20': 0.20
+            };
+            
+            if (promoCodes[code]) {
+                promoApplied = true;
+                promoDiscount = promoCodes[code];
+                messageEl.textContent = `✓ Code applied! ${promoDiscount * 100}% off`;
+                messageEl.className = 'text-sm mt-2 text-green-400';
+                messageEl.classList.remove('hidden');
+                updateSummary();
+            } else {
+                messageEl.textContent = '✗ Invalid promo code';
+                messageEl.className = 'text-sm mt-2 text-red-400';
+                messageEl.classList.remove('hidden');
+            }
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) return;
+            showToast('Redirecting to checkout...');
+            setTimeout(function() {
+                window.location.href = 'checkout.html';
+            }, 500);
+        }
+
+        function loadRecommendedProducts() {
+            const recommended = products.slice(0, 4);
+            const grid = document.getElementById('recommended-products');
+            grid.innerHTML = recommended.map(product => createProductCard(product)).join('');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize page with unified header (but we're on cart page so no side cart needed)
+            initPage('');
+            
+            // Use window.cart to ensure we're using the cart from app.js
+            cart = window.cart;
+            
+            renderCartPage();
+            loadRecommendedProducts();
+            
+            // Event delegation for cart buttons
+            document.getElementById('cart-items').addEventListener('click', function(e) {
+                var removeBtn = e.target.closest('.cart-remove-btn');
+                if (removeBtn) {
+                    var itemId = parseInt(removeBtn.getAttribute('data-item-id'));
+                    window.removeFromCart(itemId);
+                    cart = window.cart;
+                    renderCartPage();
+                    return;
+                }
+                
+                var qtyBtn = e.target.closest('.cart-qty-btn');
+                if (qtyBtn) {
+                    var itemId = parseInt(qtyBtn.getAttribute('data-item-id'));
+                    var delta = parseInt(qtyBtn.getAttribute('data-delta'));
+                    window.updateQuantity(itemId, delta);
+                    cart = window.cart;
+                    renderCartPage();
+                    return;
+                }
+            });
+        });
+        
+        // Make functions globally accessible
+        window.renderCartPage = renderCartPage;
+        window.updateSummary = updateSummary;
+        window.applyPromo = applyPromo;
+        window.proceedToCheckout = proceedToCheckout;
+    </script>
+</body>
+</html>
